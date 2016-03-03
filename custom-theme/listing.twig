@@ -1,0 +1,67 @@
+{% include '_header.twig' %}
+{% include '_subpage_toppanel.twig' %}
+
+<main class="ContentBox u-standardWidth">
+
+	{% if contenttype is defined %}
+		<h1>
+			{{ __('Overview for') }}
+			{{ contenttype }}
+		</h1>
+	{% endif %}
+
+	{% if taxonomytype is defined %}
+		<h1>
+			{{ __('Overview for') }}
+			{% if taxonomy.options[slug] is defined %}
+				{{ taxonomy.options[slug] }}
+			{% else %}
+				{{ slug }}
+			{% endif %}
+		</h1>
+
+		{% if not ( taxonomy.has_sortorder ) %}
+			{% set records = records|order(app.config.get('general/listing_sort')) %}
+		{% endif %}
+
+	{% endif %}
+
+	{% for article in records %}
+
+		<article class="ContentBox-article u-clearFix">
+			
+			<div class="ContentBox-thumb">
+				
+				{% if article.image != "" %}
+					<img src="{{ thumbnail(article.image, 637, 440) }}" alt="{{ article.title }}">
+				{% endif %}
+
+			</div>
+
+			<div class="ContentBox-teaser">
+
+				<p class="u-capitalize"><small>
+					{% for link, category in article.taxonomy.categories %}
+						<a href="{{link}}">{{category}}</a> /
+					{% endfor %}
+					{{ content.datecreated|date("M d, Y") }}
+				</small></p>
+				
+				<h1><a href="{{ article.link }}">{{ article.title }}</a></h1>
+
+				<p>{{ article.excerpt(220) }}</p>
+
+				<a href="{{ article.link }}">{{ __('Read More') }}</a>
+
+			</div>
+
+		</article>
+
+	{% endfor %}
+
+	{{ pager() }}
+
+</main>
+
+{% include '_listings_panel.twig' %}
+{% include '_footer.twig' %}

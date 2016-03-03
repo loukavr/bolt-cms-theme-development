@@ -1,0 +1,27 @@
+<div class="SPTopPanel">
+	
+	<div class="SPTopPanel-inner u-standardWidth">
+
+		<div class="SPTopPanel-topstrip u-clearFix">
+		
+			<header class="SPTopPanel-header">
+				<a href="{{ paths.root }}">
+				<h1>{{ app.config.get('general/sitename') }}</h1>
+				{% if app.config.get('general/tagline') %}
+					<p>{{ app.config.get('general/tagline') }}</p>
+				{% endif %}
+				</a>
+			</header>
+
+			<div class="navicon closed"><i class="fa fa-navicon"></i></div>
+			<nav class="Nav SPTopPanel-nav">
+				<ul id="opennav">
+					{{ menu('main', '_sub_menu_top.twig') }}
+				</ul>
+			</nav>
+		
+		</div>
+
+	</div>
+
+</div>

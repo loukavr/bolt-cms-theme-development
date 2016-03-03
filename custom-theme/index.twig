@@ -1,0 +1,122 @@
+{% include '_header.twig' %}
+
+	<div class="TopPanel">
+		
+		<div class="TopPanel-inner u-standardWidth">
+
+			<div class="TopPanel-topstrip u-clearFix">
+			
+				<header class="TopPanel-header">
+					<a href="{{ paths.root }}">
+					<h1>{{ app.config.get('general/sitename') }}</h1>
+					{% if app.config.get('general/tagline') %}
+						<p>{{ app.config.get('general/tagline') }}</p>
+					{% endif %}
+					</a>
+				</header>
+
+				<div class="navicon closed"><i class="fa fa-navicon"></i></div>
+				<nav class="Nav TopPanel-nav">
+					<ul id="opennav">
+						{{ menu('main', '_sub_menu_top.twig') }}
+					</ul>
+				</nav>
+			
+			</div>
+
+			<div class="TopPanel-leadwrap">
+				<div class="TopPanel-lead u-vertical">
+					<article class="TopPanel-leadcontent">
+						{% if record is defined %}
+
+							{% set home = record %}
+
+							{% if home.title is defined and home.title is not empty %}
+								<h1>{{ home.title }}</h1>
+							{% endif %}
+
+							<div class="TopPanel-underline"></div>
+
+							{% if home.teaser is defined and home.teaser is not empty %}
+								{{ home.teaser }}
+							{% endif %}
+
+							{% if home.link is defined and home.link is not empty %}
+								<a class="BorderButton" href="{{ home.link }}">{{ __('read the rest') }} &raquo;</a>
+							{% endif %}
+
+						{% else %}
+
+						<p>Set the 'homepage' property in config.yml to make some content appear here.</p>
+
+						{% endif %}
+					</article>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<aside class="AboutPanel">
+		<div class="AboutPanel-inner u-standardWidth">
+			{% setcontent about = "page/about" %}
+
+			{% if about.title is defined and about.title is not empty %}
+				<h1>{{ about.title }}</h1>
+
+				{{ about.body}}
+
+			{% else %}
+
+				<p>Add a page with the slug 'about' and it will show up here.</p>
+
+			{% endif %}
+
+		</div>
+	</aside>
+
+	{% include '_listings_panel.twig' %}
+
+	<main class="ContentBox u-standardWidth">
+		
+		{% setcontent entries = "entries/latest/3" allowpaging %}
+
+		{% for article in entries %}
+
+			<article class="ContentBox-article u-clearFix">
+				
+				<div class="ContentBox-thumb">
+					
+					{% if article.image != "" %}
+						<img src="{{ thumbnail(article.image, 637, 440) }}" alt="{{ article.title }}">
+					{% endif %}
+
+				</div>
+
+				<div class="ContentBox-teaser">
+
+					<p class="u-capitalize"><small>
+						{% for link, category in article.taxonomy.categories %}
+							<a href="{{link}}">{{category}}</a> /
+						{% endfor %}
+						{{ content.datecreated|date("M d, Y") }}
+					</small></p>
+					
+					<h1><a href="{{ article.link }}">{{ article.title }}</a></h1>
+
+					<p>{{ article.excerpt(220) }}</p>
+
+					<a href="{{ article.link }}">{{ __('Read More') }}</a>
+
+				</div>
+
+			</article>
+
+		{% endfor %}
+
+		{{ pager() }}
+
+	</main>
+
+{% include '_footer.twig' %}

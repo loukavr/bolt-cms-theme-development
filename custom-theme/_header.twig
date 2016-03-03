@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ htmllang() }}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>
+		{% if record.title is defined %} {{ record.title|striptags }} {% endif %}
+			{{ app.config.get('general/sitename') }}
+		{% if record.title is not defined and app.config.get('general/tagline') %} {{ app.config.get('general/tagline') }} {% endif %}
+	</title>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ paths.theme }}css/style.css">
+</head>
+<body>

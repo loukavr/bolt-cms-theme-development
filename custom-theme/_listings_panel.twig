@@ -1,0 +1,25 @@
+	<aside class="ListingsPanel">
+		<div class="ListingsPanel-inner u-standardWidth u-clearFix">
+			
+			{% for ct in app.config.get('contenttypes') if not ct.viewless|default(false) %}
+
+			{% setcontent records = ct.slug ~ "/latest/5" %}
+
+			<section class="ListingsPanel-box">
+
+				<h1>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.slug}) }}</h1>
+				<ul>
+						{% for record in records %}
+								<li><a href="{{ record.link }}">{{ record.title }}</a></li>
+						{% else %}
+								<li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
+						{% endfor %}
+				</ul>
+				<p><a class="BorderButton" href="{{ paths.root }}{{ct.slug}}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.slug}) }} &raquo;</a></p>
+
+			</section>
+
+			{% endfor %}
+
+		</div>
+	</aside>

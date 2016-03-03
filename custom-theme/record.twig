@@ -1,0 +1,32 @@
+{% include '_header.twig' %}
+{% include '_subpage_toppanel.twig' %}
+
+<main class="ContentBox u-standardWidth">
+
+	<article class="ContentBox-article u-clearFix">
+
+		<p class="u-capitalize"><small>
+			{% for link, category in record.taxonomy.categories %}
+				<a href="{{link}}">{{category}}</a> /
+			{% endfor %}
+			{{ content.datecreated|date("M d, Y") }}
+		</small></p>
+		
+		<h1 data-bolt-field="title">{{ record.title }}</h1>
+		
+		<div class="ContentBox-image">
+			
+			{% if record.image != "" %}
+				<img src="{{ thumbnail(record.image, 637, 440) }}" alt="{{ record.title }}">
+			{% endif %}
+
+		</div>
+
+		<div data-bolt-field="body">{{ record.body }}</div>
+
+	</article>
+
+</main>
+
+{% include '_listings_panel.twig' %}
+{% include '_footer.twig' %}

@@ -1,0 +1,35 @@
+{% spaceless %}
+
+{% macro display_menu_item(item, loop) %}
+
+	{% from _self import display_menu_item %}
+
+	<li>
+
+		<a href="{{ item.link }}" title='{{ item.title|default('')|escape }}'>
+			{{ item.label|default('-') }}
+			{% if item.submenu is defined %}
+				<span>+</span>
+			{% endif %}
+		</a>
+
+		{% if item.submenu is defined %}
+			<ul>
+				{% for submenu in item.submenu %}
+					{{ display_menu_item(submenu, loop) }}
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+	</li>
+{% endmacro %}
+
+{% from _self import display_menu_item %}
+
+{% for item in menu %}
+	{% if item.label is defined %}
+		{{ display_menu_item(item, loop) }}
+	{% endif %}
+{% endfor %}
+
+{% endspaceless %}

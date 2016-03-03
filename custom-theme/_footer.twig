@@ -1,0 +1,22 @@
+	<footer class="SiteFooter">
+		
+		<div class="u-standardWidth u-clearFix">
+			
+			<p class="SiteFooter-left">
+				{{ __("This website is <a href='%url%' target='_blank' title='Sophisticated, lightweight & simple CMS'>Built with Bolt</a>.",{'%url%':'http://bolt.cm'}) }}
+			</p>
+
+			<nav class="SiteFooter-nav Nav">
+				<ul>
+					{{ menu() }}
+				</ul>
+			</nav>
+
+		</div>
+
+	</footer>
+
+<script src="{{ paths.theme }}js/jquery.js"></script>
+<script src="{{ paths.theme }}js/rwd.js"></script>
+</body>
+</html>
